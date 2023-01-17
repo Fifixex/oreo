@@ -8,11 +8,10 @@ export const postCheckToken = async (req, res) => {
   
   if (!tokens) return res.json({ error: 'Error data params!' });
   let promises = await tokens.map(async (token) => {
-    let { isValid, isBot, data, error } = await checker(token);
+    let { isValid, isBot, error } = await checker(token);
     if(isValid) {
       valids++;
-      console.log(`${data.id}\n${token}`)
-      saveToken(isBot, data.id, token);
+      saveToken(isBot, token);
     }
     else errors.push(error);
   });
@@ -26,7 +25,7 @@ export const postCheckToken = async (req, res) => {
 
 export const getTokensUsers = (req, res) => {
   try {
-    res.json({ msg: 'uwu' });
+    res.json({ msg: 'Tokens users' });
   } catch (err) {
     return res.status(404).json({ error: 'No users tokens found!' });
   }
@@ -34,7 +33,7 @@ export const getTokensUsers = (req, res) => {
 
 export const getTokensBots = (req, res) => {
   try {
-    res.json({ msg: 'uwu' });
+    res.json({ msg: 'Tokens bots' });
   } catch (err) {
     return res.status(404).json({ error: 'No bots tokens found!' });
   }
